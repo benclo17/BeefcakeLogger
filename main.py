@@ -80,13 +80,17 @@ def log_workout():
 @app.route("/api-log-workout", methods=["POST"], strict_slashes=False)
 def api_log_workout():
     try:
+        # NEW: Print full headers and raw body
+        print("[/api-log-workout] HEADERS:", dict(request.headers))
+        print("[/api-log-workout] RAW BODY:", request.get_data())
+
         parsed_json = request.get_json(force=True)
         print("[/api-log-workout] Parsed JSON received:", parsed_json)
 
         required_fields = ["session", "date", "focus", "exercises", "notes", "tags"]
         missing = [field for field in required_fields if field not in parsed_json]
         if missing:
-            return jsonify({"error": f"Missing fields: {missing}"}), 400
+            return jsonify({"error": f"Missing fields: {missing}"}), 200
 
         log_to_notion(parsed_json)
 
