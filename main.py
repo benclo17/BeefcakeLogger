@@ -94,7 +94,7 @@ def api_log_workout():
 
     except Exception as e:
         print("[/api-log-workout] Error occurred:", str(e))
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 200
 
 def parse_with_gpt4o(raw_text):
     """Send raw workout text to GPT-4o and get structured JSON."""
